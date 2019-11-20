@@ -10,6 +10,7 @@ namespace RaidillonClient
     {
         static void Main(string[] args)
         {
+            new TelemetryClient("127.0.0.1", 20777);
         }
     }
 }
