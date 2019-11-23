@@ -1,9 +1,12 @@
-﻿using System;
+﻿using RaidillonClient.DataStructure;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using static RaidillonClient.DataStructure.TelemetryDataStructures;
@@ -31,23 +34,28 @@ namespace RaidillonClient
 
                     Console.WriteLine($"Message: {received.Length} bytes");
 
+                    /*
                     var packet = ReadPacketHeader(received);
                     PacketId id = (PacketId)Enum.ToObject(typeof(PacketId), packet.m_packetId);
                     Console.WriteLine($"{id}");
+                    */
 
-
+                    var packet = PacketBuilder.BuildFromByteArray(received);
                 }
             }
         }
 
-        private PacketHeader ReadPacketHeader(byte[] data)
+
+        public T FromByteArray<T>(byte[] data)
         {
-            GCHandle pinnedPacket = GCHandle.Alloc(data, GCHandleType.Pinned);
-            PacketHeader packet = (PacketHeader)Marshal.PtrToStructure(
-                pinnedPacket.AddrOfPinnedObject(),
-                typeof(PacketHeader));
-            pinnedPacket.Free();
-            return packet;
+            if (data == null)
+                return default(T);
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream(data))
+            {
+                object obj = bf.Deserialize(ms);
+                return (T)obj;
+            }
         }
     }
 }
