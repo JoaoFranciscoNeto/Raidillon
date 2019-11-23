@@ -44,11 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataStructure\BasePacket.cs" />
+    <Compile Include="DataStructure\DataEnums.cs" />
     <Compile Include="DataStructure\DataPacket.cs" />
     <Compile Include="DataStructure\MotionPacket.cs" />
     <Compile Include="DataStructure\PacketBuilder.cs" />
     <Compile Include="DataStructure\PacketHeader.cs" />
-    <Compile Include="DataStructure\TelemetryDataStructures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TelemetryClient.cs" />

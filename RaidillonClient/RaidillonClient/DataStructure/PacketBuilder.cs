@@ -15,9 +15,19 @@ namespace RaidillonClient.DataStructure
 
             PacketHeader packetHeader = BuildPacketHeaderFromByteArray(binaryReader);
 
-            //Console.WriteLine(packetHeader);
+            var packetId = Enum.Parse(typeof(DataEnums.PacketId), packetHeader.m_packetId.ToString());
 
-            Console.WriteLine( TimeSpan.FromSeconds(packetHeader.m_sessionTime));
+            Console.WriteLine(packetId);
+            switch (packetId)
+            {
+                case DataEnums.PacketId.Motion:
+
+                    break;
+                default:
+                    break;
+            }
+
+            //Console.WriteLine( TimeSpan.FromSeconds(packetHeader.m_sessionTime));
 
             return new MotionPacket();
         }
