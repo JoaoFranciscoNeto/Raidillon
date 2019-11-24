@@ -17,8 +17,6 @@ namespace RaidillonClient.DataStructure
             packet.PacketHeader = BuildPacketHeaderFromByteArray(binaryReader);
 
             var packetId = Enum.Parse(typeof(DataEnums.PacketId), packet.PacketHeader.m_packetId.ToString());
-            
-
             switch (packetId)
             {
                 case DataEnums.PacketId.Motion:
@@ -43,7 +41,7 @@ namespace RaidillonClient.DataStructure
                 m_gameMajorVersion = binaryReader.ReadByte(),
                 m_gameMinorVersion = binaryReader.ReadByte(),
                 m_packetVersion = binaryReader.ReadByte(),
-                m_packetId = (DataEnums.PacketId)Enum.Parse(typeof(DataEnums.PacketId), binaryReader.ReadByte().ToString()),
+                m_packetId =  binaryReader.ReadByte(),
                 m_sessionUID = binaryReader.ReadUInt64(),
                 m_sessionTime = binaryReader.ReadSingle(),
                 m_frameIdentifier = binaryReader.ReadUInt32(),

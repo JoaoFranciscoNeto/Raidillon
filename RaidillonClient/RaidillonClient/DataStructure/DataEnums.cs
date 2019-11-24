@@ -8,7 +8,7 @@ namespace RaidillonClient.DataStructure
 {
     static class DataEnums
     {
-        public enum PacketId
+        internal enum PacketId
         {
             Motion = 0,
             Session = 1,
