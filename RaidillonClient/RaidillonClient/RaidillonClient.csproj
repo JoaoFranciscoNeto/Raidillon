@@ -44,13 +44,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataStructure\BasePacket.cs" />
+    <Compile Include="DataStructure\CarSetupPacket.cs" />
+    <Compile Include="DataStructure\CarStatusPacket.cs" />
+    <Compile Include="DataStructure\CarTelemetryPacket.cs" />
     <Compile Include="DataStructure\DataEnums.cs" />
     <Compile Include="DataStructure\DataPacket.cs" />
     <Compile Include="DataStructure\CarMotionData.cs" />
+    <Compile Include="DataStructure\EventPacket.cs" />
+    <Compile Include="DataStructure\LapData.cs" />
+    <Compile Include="DataStructure\LapPacket.cs" />
     <Compile Include="DataStructure\MarshalZoneData.cs" />
     <Compile Include="DataStructure\MotionPacket.cs" />
     <Compile Include="DataStructure\PacketBuilder.cs" />
     <Compile Include="DataStructure\PacketHeader.cs" />
+    <Compile Include="DataStructure\ParticipantPacket.cs" />
     <Compile Include="DataStructure\SessionPacket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

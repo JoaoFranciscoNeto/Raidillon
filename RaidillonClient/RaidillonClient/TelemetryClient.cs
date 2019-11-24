@@ -16,6 +16,8 @@ namespace RaidillonClient
     {
         int port;
 
+        Dictionary<Type, int> packets;
+
         public TelemetryClient(string ip, int port)
         {
             this.port = port;
@@ -24,6 +26,11 @@ namespace RaidillonClient
         }
         private void Connect()
         {
+            packets = new Dictionary<Type, int>();
+            foreach (var item in typeof(DataPacket).Assembly.GetTypes().Where(t=>t.IsSubclassOf(typeof(DataPacket))))
+            {
+                packets.Add(item, 0);
+            }
             using (var udpClient = new UdpClient(this.port))
             {
                 while (true)
@@ -34,6 +41,10 @@ namespace RaidillonClient
                     //Console.WriteLine($"Message: {received.Length} bytes");
 
                     var packet = PacketBuilder.BuildFromByteArray(received);
+
+                    packets[packet.DataPacket.GetType()]++;
+
+                    Console.WriteLine(string.Join("\t",packets.Values));
                 }
             }
         }
