@@ -31,13 +31,7 @@ namespace RaidillonClient
                     var remoteEndpoint = new IPEndPoint(IPAddress.Any, 0);
                     var received = udpClient.Receive(ref remoteEndpoint);
 
-                    Console.WriteLine($"Message: {received.Length} bytes");
-
-                    /*
-                    var packet = ReadPacketHeader(received);
-                    PacketId id = (PacketId)Enum.ToObject(typeof(PacketId), packet.m_packetId);
-                    Console.WriteLine($"{id}");
-                    */
+                    //Console.WriteLine($"Message: {received.Length} bytes");
 
                     var packet = PacketBuilder.BuildFromByteArray(received);
                 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RaidillonClient.DataStructure
 {
-    abstract class BasePacket
+    class BasePacket
     {
-        PacketHeader PacketHeader;
-        DataPacket DataPacket;
+        public PacketHeader PacketHeader { get; internal set; }
+        public DataPacket DataPacket { get; internal set; }
     }
 }
