@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RaidillonClient.DataStructure
+namespace Raidillon.Client.DataStructure
 {
     static class PacketBuilder
     {
@@ -46,7 +46,7 @@ namespace RaidillonClient.DataStructure
                 default:
                     return null;
             }
-             
+
             binaryReader.Dispose();
             return packet;
         }
