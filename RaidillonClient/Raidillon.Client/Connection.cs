@@ -9,6 +9,7 @@ namespace Raidillon.Client
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
+    using System.Reflection;
     using System.Text;
 
     public class Connection
@@ -58,23 +59,26 @@ namespace Raidillon.Client
         {
             using (var udpClient = new UdpClient(this.port))
             {
+                double speed = 0.0;
+
 
                 while (this.on)
                 {
                     var received = udpClient.Receive(ref this.endPoint);
                     var packet = PacketBuilder.BuildFromByteArray(received);
-
                     switch (packet.DataPacket)
                     {
-                        case MotionPacket motionPacket:
-                            this.OnMotionPacketReceived.Invoke(this, new PacketEventArgs() { Packet = packet });
-                            break;
                         case CarTelemetryPacket telemetryPacket:
-                            this.OnCarTelemetryPacketReceived.Invoke(this, new PacketEventArgs() { Packet = packet });
+                            foreach (var item in telemetryPacket.m_carTelemetryData)
+                            {
+                                speed = Convert.ToDouble(item.GetType().GetProperty("m_speed").GetValue(item));
+                                Console.WriteLine(speed);
+                            }
                             break;
                         default:
                             break;
                     }
+
                 }
             }
         }
