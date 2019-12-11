@@ -312,8 +312,9 @@ namespace Raidillon.Client.DataStructure
 
         private static CarTelemetryPacket BuildCarTelemetryPacketFromByteArray(BinaryReader binaryReader)
         {
+            
             var packet = new CarTelemetryPacket();
-
+            /*
             packet.m_carTelemetryData = new CarTelemetryPacket.CarTelemetryData[20];
             for (int i = 0; i < 20; i++)
             {
@@ -359,7 +360,7 @@ namespace Raidillon.Client.DataStructure
 
                 packet.m_carTelemetryData[i].m_surfaceType = binaryReader.ReadBytes(4);
             }
-
+            */
             return packet;
         }
 

@@ -1,33 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Raidillon.Client.DataStructure
+﻿namespace Raidillon.Client.DataStructure
 {
-    class CarTelemetryPacket : DataPacket
+    internal class CarTelemetryPacket : DataPacket
     {
-        public class CarTelemetryData
+        private class CarTelemetryData
         {
-            public ushort m_speed { get; internal set; }                    // Speed of car in kilometres per hour
-            public float m_throttle { get; internal set; }                 // Amount of throttle applied (0.0 to 1.0)
-            public float m_steer { get; internal set; }                    // Steering (-1.0 (full lock left) to 1.0 (full lock right))
-            public float m_brake { get; internal set; }                    // Amount of brake applied (0.0 to 1.0)
-            public byte m_clutch { get; internal set; }                   // Amount of clutch applied (0 to 100)
-            public sbyte m_gear { get; internal set; }                     // Gear selected (1-8, N=0, R=-1)
-            public ushort m_engineRPM { get; internal set; }                // Engine RPM
-            public byte m_drs { get; internal set; }                      // 0 = off, 1 = on
-            public byte m_revLightsPercent { get; internal set; }         // Rev lights indicator (percentage)
-            public ushort[] m_brakesTemperature { get; internal set; }     // Brakes temperature (celsius)
-            public ushort[] m_tyresSurfaceTemperature { get; internal set; } // Tyres surface temperature (celsius)
-            public ushort[] m_tyresInnerTemperature { get; internal set; } // Tyres inner temperature (celsius)
-            public ushort m_engineTemperature { get; internal set; }        // Engine temperature (celsius)
-            public float[] m_tyresPressure { get; internal set; }         // Tyres pressure (PSI)
-            public byte[] m_surfaceType { get; internal set; }           // Driving surface, see appendices 
+            private ushort m_speed { get; set; }                    // Speed of car in kilometres per hour
+
+            private float m_throttle { get; set; }                 // Amount of throttle applied (0.0 to 1.0)
+
+            private float m_steer { get; set; }                    // Steering (-1.0 (full lock left) to 1.0 (full lock right))
+
+            private float m_brake { get; set; }                    // Amount of brake applied (0.0 to 1.0)
+
+            private byte m_clutch { get; set; }                   // Amount of clutch applied (0 to 100)
+
+            private sbyte m_gear { get; set; }                     // Gear selected (1-8, N=0, R=-1)
+
+            private ushort m_engineRPM { get; set; }                // Engine RPM
+
+            private byte m_drs { get; set; }                      // 0 = off, 1 = on
+
+            private byte m_revLightsPercent { get; set; }         // Rev lights indicator (percentage)
+
+            private ushort[] m_brakesTemperature { get; set; }     // Brakes temperature (celsius)
+
+            private ushort[] m_tyresSurfaceTemperature { get; set; } // Tyres surface temperature (celsius)
+
+            private ushort[] m_tyresInnerTemperature { get; set; } // Tyres inner temperature (celsius)
+
+            private ushort m_engineTemperature { get; set; }        // Engine temperature (celsius)
+
+            private float[] m_tyresPressure { get; set; }         // Tyres pressure (PSI)
+
+            private byte[] m_surfaceType { get; set; }           // Driving surface, see appendices 
         }
 
-        public CarTelemetryData[] m_carTelemetryData { get; internal set; }
-        public uint m_buttonStatus { get; internal set; }
+        private CarTelemetryData[] m_carTelemetryData { get; set; }
+
+        private uint m_buttonStatus { get; set; }
     }
 }

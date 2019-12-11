@@ -66,18 +66,7 @@ namespace Raidillon.Client
                 {
                     var received = udpClient.Receive(ref this.endPoint);
                     var packet = PacketBuilder.BuildFromByteArray(received);
-                    switch (packet.DataPacket)
-                    {
-                        case CarTelemetryPacket telemetryPacket:
-                            foreach (var item in telemetryPacket.m_carTelemetryData)
-                            {
-                                speed = Convert.ToDouble(item.GetType().GetProperty("m_speed").GetValue(item));
-                                Console.WriteLine(speed);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+
 
                 }
             }

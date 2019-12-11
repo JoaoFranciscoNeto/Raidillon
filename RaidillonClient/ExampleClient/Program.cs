@@ -12,12 +12,19 @@ namespace ExampleClient
         static void Main(string[] args)
         {
 
+            /*
             var connection = Connection.Connect(20777);
+
 
             connection.OnMotionPacketReceived += Connection_OnMotionPacketReceived;
 
             connection.Start();
+            */
 
+            foreach (var item in ChannelDefinitions.Channels)
+            {
+                Console.WriteLine(item);
+            }
             Console.ReadLine();
         }
 
