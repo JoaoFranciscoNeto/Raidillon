@@ -45,6 +45,7 @@ namespace RaidillonClient
                     packets[packet.DataPacket.GetType()]++;
 
                     Console.WriteLine(string.Join("\t",packets.Values));
+
                 }
             }
         }
