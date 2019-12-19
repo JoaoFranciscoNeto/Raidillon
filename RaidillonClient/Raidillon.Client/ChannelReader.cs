@@ -23,23 +23,25 @@ namespace Raidillon.Client
         internal static IEnumerable<ChannelPacket> ReadTelemetryPacket(PacketHeader header, CarTelemetryPacket packet)
         {
             var channels = new List<ChannelPacket>();
+            /*
+            var timestamp = header.m_sessionTime;
 
             foreach (var vehicleTelem in packet.m_carTelemetryData)
             {
                 channels.AddRange(
                     new ChannelPacket[]
                     {
-                        new ChannelPacket() { Name = "Speed", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_speed },
-                        new ChannelPacket() { Name = "Throttle", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_throttle },
-                        new ChannelPacket() { Name = "Steer", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_steer },
-                        new ChannelPacket() { Name = "Brake", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_brake },
-                        new ChannelPacket() { Name = "Clutch", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_clutch },
-                        new ChannelPacket() { Name = "NGear", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_gear },
-                        new ChannelPacket() { Name = "NEngine", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_engineRPM },
-                        new ChannelPacket() { Name = "Drs", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_drs },
-                        new ChannelPacket() { Name = "TEngine", Timestamp = header.m_sessionTime, Value = vehicleTelem.m_engineTemperature },
+                        new ChannelPacket() { Name = "Speed", Timestamp = timestamp, Value = vehicleTelem.m_speed },
+                        new ChannelPacket() { Name = "Throttle", Timestamp = timestamp, Value = vehicleTelem.m_throttle },
+                        new ChannelPacket() { Name = "Steer", Timestamp = timestamp, Value = vehicleTelem.m_steer },
+                        new ChannelPacket() { Name = "Brake", Timestamp = timestamp, Value = vehicleTelem.m_brake },
+                        new ChannelPacket() { Name = "Clutch", Timestamp = timestamp, Value = vehicleTelem.m_clutch },
+                        new ChannelPacket() { Name = "NGear", Timestamp = timestamp, Value = vehicleTelem.m_gear },
+                        new ChannelPacket() { Name = "NEngine", Timestamp = timestamp, Value = vehicleTelem.m_engineRPM },
+                        new ChannelPacket() { Name = "Drs", Timestamp = timestamp, Value = vehicleTelem.m_drs },
+                        new ChannelPacket() { Name = "TEngine", Timestamp = timestamp, Value = vehicleTelem.m_engineTemperature },
                     });
-            }
+            }*/
 
             return channels;
         }

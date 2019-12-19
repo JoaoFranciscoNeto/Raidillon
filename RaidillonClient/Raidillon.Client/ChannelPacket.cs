@@ -1,15 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Raidillon.Client
+﻿namespace Raidillon.Client
 {
     public class ChannelPacket
     {
-        public double Value { get; internal set; }
+        public ChannelPacket(float timestamp, int vehicleId, string name, double value)
+        {
+            this.Value = value;
+            this.Name = name;
+            this.Timestamp = timestamp;
+            this.VehicleId = vehicleId;
+        }
 
-        public string Name { get; internal set; }
+        public double Value { get;  set; }
 
-        public float Timestamp { get; internal set; }
+        public string Name { get;  set; }
+
+        public float Timestamp { get; set; }
+
+        public int VehicleId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Timestamp,10} {this.Name,20} {this.Value,20}";
+        }
     }
 }

@@ -1,11 +1,12 @@
-﻿namespace Raidillon.Client
-{
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-    public class ChannelDefinitions
+namespace Raidillon.Client.F12019
+{
+    class ChannelDefinitions : IChannelDefinitions
     {
-        public static IEnumerable<ChannelDefinition> Channels = new List<ChannelDefinition>()
+        public IEnumerable<ChannelDefinition> Channels { get; } = new List<ChannelDefinition>()
         {
             new ChannelDefinition("Speed", "kmh"),
             new ChannelDefinition("Throttle", "%"),
@@ -17,12 +18,5 @@
             new ChannelDefinition("Drs", "%"),
             new ChannelDefinition("TEngine", "°C"),
         };
-
-        public static IEnumerable<string> ChannelNames;
-
-        static ChannelDefinitions()
-        {
-            ChannelNames = Channels.Select(c => c.Name);
-        }
     }
 }
