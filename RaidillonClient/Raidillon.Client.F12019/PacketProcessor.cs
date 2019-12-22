@@ -34,38 +34,38 @@ namespace Raidillon.Client.F12019
         private static List<ChannelPacket> ReadTelemPacket(BinaryReader reader, float time)
         {
             var packets = new List<ChannelPacket>();
-            for (var i = 0; i < 20; i++)
+            for (var vIndex = 0; vIndex < 20; vIndex++)
             {
-                packets.Add(new ChannelPacket(time, i, "Speed", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "Throttle", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "Steer", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "Brake", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "Clutch", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "Gear", reader.ReadSByte()));
-                packets.Add(new ChannelPacket(time, i, "NEngine", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "DRS", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "RevLights", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "TBrakesRL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TBrakesRR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TBrakesFL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TBrakesFR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreSurfsRL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreSurfsRR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreSurfsFL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreSurfsFR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreInnersRL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreInnersRR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreInnersFL", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TTyreInnersFR", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "TEngine", reader.ReadUInt16()));
-                packets.Add(new ChannelPacket(time, i, "PTyresRL", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "PTyresRR", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "PTyresFL", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "PTyresFR", reader.ReadSingle()));
-                packets.Add(new ChannelPacket(time, i, "SurfTyresRL", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "SurfTyresRR", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "SurfTyresFL", reader.ReadByte()));
-                packets.Add(new ChannelPacket(time, i, "SurfTyresFR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "Speed", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "Throttle", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Steer", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Brake", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Clutch", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "Gear", reader.ReadSByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "NEngine", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "DRS", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "RevLights", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TBrakesRL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TBrakesRR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TBrakesFL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TBrakesFR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreSurfsRL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreSurfsRR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreSurfsFL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreSurfsFR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreInnersRL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreInnersRR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreInnersFL", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TTyreInnersFR", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "TEngine", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "PTyresRL", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "PTyresRR", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "PTyresFL", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "PTyresFR", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "SurfTyresRL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "SurfTyresRR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "SurfTyresFL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "SurfTyresFR", reader.ReadByte()));
             }
             return packets;
         }
@@ -73,7 +73,42 @@ namespace Raidillon.Client.F12019
         private static List<ChannelPacket> ReadCarStatusPacket(BinaryReader reader, float time)
         {
             var packets = new List<ChannelPacket>();
-
+            for (var vIndex = 0; vIndex < 20; vIndex++)
+            {
+                packets.Add(new ChannelPacket(time, vIndex, "TractionControl", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "AntiLockBrakes", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FuelMix", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FrontBrakeBias", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "PitLimiter", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FuelInTank", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "FuelCapacity", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "FuelRemainingLaps", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "MaxRPM", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "IdleRPM", reader.ReadUInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "MaxGear", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "DRSAllowed", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresWearRL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresWearRR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresWearFL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresWearFR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyreCompound", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "VisualTyreCompound", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresDamageRL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresDamageRR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresDamageFL", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "TyresDamageFR", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FrontLeftWingDamage", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FrontRightWingDamage", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "RearWingDamage", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "EngineDamage", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "GearBoxDamage", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "FIAFlags", reader.ReadSByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "ERSStored", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "ERSMode", reader.ReadByte()));
+                packets.Add(new ChannelPacket(time, vIndex, "ERSHarvestedLapMGUK", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "ERSHarvestedLapMGUH", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "ERSDeployedLap", reader.ReadSingle()));
+            }
             return packets;
         }
 

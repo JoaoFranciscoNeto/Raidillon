@@ -2,57 +2,39 @@
 {
     using Raidillon.Client;
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
     using System.Reactive.Linq;
     using System.Reactive.Threading.Tasks;
     using System.Threading.Tasks;
 
-    public class F12019Connection : IConnection
+    public class F12019Connection
     {
-        private static readonly int Port = 20777;
-
-        public IObservable<ChannelPacket> StartConnection()
+        public IObservable<IList<ChannelPacket>> StartConnection(int port)
         {
-            //this.ReceiveUDP();
+            this.port = port;
 
             return ChannelStream();
         }
 
         public bool EndConnection()
         {
-            this.stop = true;
-
             return true;
         }
 
-        private bool stop = false;
 
-
-
-        private void ReceiveUDP()
+        private int port;
+        public IObservable<IList<ChannelPacket>> ChannelStream()
         {
-            Task.Run(() =>
-            {
-                using (var udpClient = new UdpClient(Port))
-                {
-                    var remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                    while (!this.stop)
-                    {
-                        //IPEndPoint object will allow us to read datagrams sent from any source.
-                        var receivedResults = udpClient.Receive(ref remoteEndPoint);
-                    }
-                }
-            });
-        }
-
-        private static IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, Port);
-        public IObservable<ChannelPacket> ChannelStream()
-        {
+            var endPoint = new IPEndPoint(IPAddress.Any, port);
             return Observable.Using(() => new UdpClient(endPoint),
                 udpClient => Observable.Defer(() =>
                     udpClient.ReceiveAsync().ToObservable()).Repeat()
-                .SelectMany(res => PacketProcessor.ProcessPacket(res.Buffer)));
+                .SelectMany(res => PacketProcessor.ProcessPacket(res.Buffer)))
+                .GroupBy(
+                    p => new { p.Timestamp, p.VehicleId })
+                .SelectMany(g => g.TakeUntil(Observable.Timer(TimeSpan.FromSeconds(1))).ToList());
         }
     }
 }
