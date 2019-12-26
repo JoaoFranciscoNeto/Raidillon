@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaidillonClient", "RaidillonClient\RaidillonClient.csproj", "{51EA0BE4-D49C-44C2-B907-D75731031A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raidillon.Client", "Raidillon.Client\Raidillon.Client.csproj", "{FA922541-B816-47DC-AA6E-D1FE2ABB039C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raidillon.Client", "Raidillon.Client\Raidillon.Client.csproj", "{0F6B4B23-4F80-4F4E-BF5E-6E0CD13444FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raidillon.Test", "Raidillon.Test\Raidillon.Test.csproj", "{55E7ED5E-ED34-4DA7-A9E4-F8DB097D947B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleClient", "ExampleClient\ExampleClient.csproj", "{1F02FFAF-305A-476D-AF7A-7AC34CB9EF18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raidillon.Client.F12019", "Raidillon.Client.F12019\Raidillon.Client.F12019.csproj", "{CF3F58D5-6B43-40E7-AF31-72BA87B01E84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Example", "Raidillon.Client.Example\Client.Example.csproj", "{C2638488-DB2D-4B07-A2FB-3F260C9C7D37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{51EA0BE4-D49C-44C2-B907-D75731031A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51EA0BE4-D49C-44C2-B907-D75731031A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51EA0BE4-D49C-44C2-B907-D75731031A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51EA0BE4-D49C-44C2-B907-D75731031A7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F6B4B23-4F80-4F4E-BF5E-6E0CD13444FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F6B4B23-4F80-4F4E-BF5E-6E0CD13444FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F6B4B23-4F80-4F4E-BF5E-6E0CD13444FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F6B4B23-4F80-4F4E-BF5E-6E0CD13444FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F02FFAF-305A-476D-AF7A-7AC34CB9EF18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F02FFAF-305A-476D-AF7A-7AC34CB9EF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F02FFAF-305A-476D-AF7A-7AC34CB9EF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F02FFAF-305A-476D-AF7A-7AC34CB9EF18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA922541-B816-47DC-AA6E-D1FE2ABB039C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA922541-B816-47DC-AA6E-D1FE2ABB039C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA922541-B816-47DC-AA6E-D1FE2ABB039C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA922541-B816-47DC-AA6E-D1FE2ABB039C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E7ED5E-ED34-4DA7-A9E4-F8DB097D947B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E7ED5E-ED34-4DA7-A9E4-F8DB097D947B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E7ED5E-ED34-4DA7-A9E4-F8DB097D947B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E7ED5E-ED34-4DA7-A9E4-F8DB097D947B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3F58D5-6B43-40E7-AF31-72BA87B01E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3F58D5-6B43-40E7-AF31-72BA87B01E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3F58D5-6B43-40E7-AF31-72BA87B01E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3F58D5-6B43-40E7-AF31-72BA87B01E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2638488-DB2D-4B07-A2FB-3F260C9C7D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2638488-DB2D-4B07-A2FB-3F260C9C7D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2638488-DB2D-4B07-A2FB-3F260C9C7D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2638488-DB2D-4B07-A2FB-3F260C9C7D37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

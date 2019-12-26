@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Raidillon.Client.DataStructure
 {
-    static class PacketBuilder
+    internal static class PacketBuilder
     {
         public static BasePacket BuildFromByteArray(byte[] array)
         {
-            BinaryReader binaryReader = new BinaryReader(new MemoryStream(array));
-            var packet = new BasePacket();
+            var binaryReader = new BinaryReader(new MemoryStream(array));
+            var packet = new BasePacket
+            {
+                PacketHeader = BuildPacketHeaderFromByteArray(binaryReader)
+            };
 
-            packet.PacketHeader = BuildPacketHeaderFromByteArray(binaryReader);
+            
 
             var packetId = Enum.Parse(typeof(DataEnums.PacketId), packet.PacketHeader.m_packetId.ToString());
             switch (packetId)
@@ -59,20 +59,22 @@ namespace Raidillon.Client.DataStructure
                 m_gameMajorVersion = binaryReader.ReadByte(),
                 m_gameMinorVersion = binaryReader.ReadByte(),
                 m_packetVersion = binaryReader.ReadByte(),
-                m_packetId =  binaryReader.ReadByte(),
+                m_packetId = binaryReader.ReadByte(),
                 m_sessionUID = binaryReader.ReadUInt64(),
                 m_sessionTime = binaryReader.ReadSingle(),
                 m_frameIdentifier = binaryReader.ReadUInt32(),
-                m_playerCarIndex = binaryReader.ReadByte()
+                m_playerCarIndex = binaryReader.ReadByte(),
             };
         }
 
         private static MotionPacket BuildMotionPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new MotionPacket();
-            packet.m_carMotionData = new CarMotionData[MotionPacket.nCars];
+            var packet = new MotionPacket
+            {
+                m_carMotionData = new CarMotionData[MotionPacket.nCars]
+            };
 
-            for (int carIndex = 0; carIndex < MotionPacket.nCars; carIndex++)
+            for (var carIndex = 0; carIndex < MotionPacket.nCars; carIndex++)
             {
                 packet.m_carMotionData[carIndex] = new CarMotionData
                 {
@@ -93,36 +95,36 @@ namespace Raidillon.Client.DataStructure
                     m_gForceVertical = binaryReader.ReadSingle(),
                     m_yaw = binaryReader.ReadSingle(),
                     m_pitch = binaryReader.ReadSingle(),
-                    m_roll = binaryReader.ReadSingle()
+                    m_roll = binaryReader.ReadSingle(),
                 };
             }
 
             packet.m_suspensionPosition = new float[MotionPacket.nPoints];
-            for (int point = 0; point < MotionPacket.nPoints; point++)
+            for (var point = 0; point < MotionPacket.nPoints; point++)
             {
                 packet.m_suspensionPosition[point] = binaryReader.ReadSingle();
             }
 
             packet.m_suspensionVelocity = new float[MotionPacket.nPoints];
-            for (int point = 0; point < MotionPacket.nPoints; point++)
+            for (var point = 0; point < MotionPacket.nPoints; point++)
             {
                 packet.m_suspensionVelocity[point] = binaryReader.ReadSingle();
             }
 
             packet.m_suspensionAcceleration = new float[MotionPacket.nPoints];
-            for (int point = 0; point < MotionPacket.nPoints; point++)
+            for (var point = 0; point < MotionPacket.nPoints; point++)
             {
                 packet.m_suspensionAcceleration[point] = binaryReader.ReadSingle();
             }
 
             packet.m_wheelSpeed = new float[MotionPacket.nPoints];
-            for (int point = 0; point < MotionPacket.nPoints; point++)
+            for (var point = 0; point < MotionPacket.nPoints; point++)
             {
                 packet.m_wheelSpeed[point] = binaryReader.ReadSingle();
             }
 
             packet.m_wheelSlip = new float[MotionPacket.nPoints];
-            for (int point = 0; point < MotionPacket.nPoints; point++)
+            for (var point = 0; point < MotionPacket.nPoints; point++)
             {
                 packet.m_wheelSlip[point] = binaryReader.ReadSingle();
             }
@@ -143,26 +145,26 @@ namespace Raidillon.Client.DataStructure
 
         private static SessionPacket BuildSessionPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new SessionPacket();
-
-            packet.m_weather = binaryReader.ReadByte();
-            packet.m_trackTemperature = binaryReader.ReadSByte();
-            packet.m_airTemperature = binaryReader.ReadSByte();
-            packet.m_totalLaps = binaryReader.ReadByte();
-            packet.m_trackLength = binaryReader.ReadUInt16();
-            packet.m_sessionType = binaryReader.ReadByte();
-            packet.m_trackId = binaryReader.ReadSByte();
-            packet.m_formula = binaryReader.ReadByte();
-            packet.m_sessionTimeLeft = binaryReader.ReadUInt16();
-            packet.m_sessionDuration = binaryReader.ReadUInt16();
-            packet.m_pitSpeedLimit = binaryReader.ReadByte();
-            packet.m_gamePaused = binaryReader.ReadByte();
-            packet.m_isSpectating = binaryReader.ReadByte();
-            packet.m_sliProNativeSupport = binaryReader.ReadByte();
-            packet.m_numMarshalZones = binaryReader.ReadByte();
-
-            packet.m_marshalZones = new MarshalZoneData[21];
-            for (int i = 0; i < 21; i++)
+            var packet = new SessionPacket
+            {
+                m_weather = binaryReader.ReadByte(),
+                m_trackTemperature = binaryReader.ReadSByte(),
+                m_airTemperature = binaryReader.ReadSByte(),
+                m_totalLaps = binaryReader.ReadByte(),
+                m_trackLength = binaryReader.ReadUInt16(),
+                m_sessionType = binaryReader.ReadByte(),
+                m_trackId = binaryReader.ReadSByte(),
+                m_formula = binaryReader.ReadByte(),
+                m_sessionTimeLeft = binaryReader.ReadUInt16(),
+                m_sessionDuration = binaryReader.ReadUInt16(),
+                m_pitSpeedLimit = binaryReader.ReadByte(),
+                m_gamePaused = binaryReader.ReadByte(),
+                m_isSpectating = binaryReader.ReadByte(),
+                m_sliProNativeSupport = binaryReader.ReadByte(),
+                m_numMarshalZones = binaryReader.ReadByte(),
+                m_marshalZones = new MarshalZoneData[21],
+            };
+            for (var i = 0; i < 21; i++)
             {
                 packet.m_marshalZones[i] = new MarshalZoneData()
                 {
@@ -179,11 +181,12 @@ namespace Raidillon.Client.DataStructure
 
         private static LapPacket BuildLapPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new LapPacket();
+            var packet = new LapPacket
+            {
+                m_lapData = new LapData[20],
+            };
 
-            packet.m_lapData = new LapData[20];
-
-            for (int i = 0; i < 20; i++)
+            for (var i = 0; i < 20; i++)
             {
                 packet.m_lapData[i] = new LapData()
                 {
@@ -212,9 +215,10 @@ namespace Raidillon.Client.DataStructure
 
         private static EventPacket BuildEventPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new EventPacket();
-
-            packet.m_eventStringCode = binaryReader.ReadBytes(4);
+            var packet = new EventPacket
+            {
+                m_eventStringCode = binaryReader.ReadBytes(4)
+            };
 
             switch (Encoding.Default.GetString(packet.m_eventStringCode))
             {
@@ -253,12 +257,13 @@ namespace Raidillon.Client.DataStructure
 
         private static ParticipantPacket BuildParticipantPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new ParticipantPacket();
+            var packet = new ParticipantPacket
+            {
+                m_numActiveCar = binaryReader.ReadByte(),
 
-            packet.m_numActiveCar = binaryReader.ReadByte();
-
-            packet.m_participants = new ParticipantPacket.ParticipantData[20];
-            for (int i = 0; i < 20; i++)
+                m_participants = new ParticipantPacket.ParticipantData[20]
+            };
+            for (var i = 0; i < 20; i++)
             {
                 packet.m_participants[i] = new ParticipantPacket.ParticipantData()
                 {
@@ -277,10 +282,11 @@ namespace Raidillon.Client.DataStructure
 
         private static CarSetupPacket BuildCarSetupPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new CarSetupPacket();
-
-            packet.m_carSetups = new CarSetupPacket.CarSetupData[20];
-            for (int i = 0; i < 20; i++)
+            var packet = new CarSetupPacket
+            {
+                m_carSetups = new CarSetupPacket.CarSetupData[20]
+            };
+            for (var i = 0; i < 20; i++)
             {
                 packet.m_carSetups[i] = new CarSetupPacket.CarSetupData()
                 {
@@ -312,7 +318,7 @@ namespace Raidillon.Client.DataStructure
 
         private static CarTelemetryPacket BuildCarTelemetryPacketFromByteArray(BinaryReader binaryReader)
         {
-            
+
             var packet = new CarTelemetryPacket();
             /*
             packet.m_carTelemetryData = new CarTelemetryPacket.CarTelemetryData[20];
@@ -366,10 +372,11 @@ namespace Raidillon.Client.DataStructure
 
         private static CarStatusPacket BuildCarStatusPacketFromByteArray(BinaryReader binaryReader)
         {
-            var packet = new CarStatusPacket();
-
-            packet.m_carStatusData = new CarStatusPacket.CarStatusData[20];
-            for (int i = 0; i < 20; i++)
+            var packet = new CarStatusPacket
+            {
+                m_carStatusData = new CarStatusPacket.CarStatusData[20]
+            };
+            for (var i = 0; i < 20; i++)
             {
                 packet.m_carStatusData[i] = new CarStatusPacket.CarStatusData()
                 {
