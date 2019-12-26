@@ -14,13 +14,15 @@ namespace Raidillon.Client.F12019
             var timestamp = packet.m_sessionTime;
             switch (packet.m_packetId)
             {
-                case 6:
+                case 1:
+                    channelPackets.AddRange(ReadMotionPacket(binaryReader, timestamp));
+                    break;
 
+                case 6:
                     channelPackets.AddRange(ReadTelemPacket(binaryReader, timestamp));
                     break;
 
                 case 7:
-
                     channelPackets.AddRange(ReadCarStatusPacket(binaryReader, timestamp));
                     break;
 
@@ -109,6 +111,34 @@ namespace Raidillon.Client.F12019
                 packets.Add(new ChannelPacket(time, vIndex, "ERSHarvestedLapMGUH", reader.ReadSingle()));
                 packets.Add(new ChannelPacket(time, vIndex, "ERSDeployedLap", reader.ReadSingle()));
             }
+            return packets;
+        }
+
+        private static List<ChannelPacket> ReadMotionPacket(BinaryReader reader, float time)
+        {
+            var packets = new List<ChannelPacket>();
+            for (var vIndex = 0; vIndex < 20; vIndex++)
+            {
+                packets.Add(new ChannelPacket(time, vIndex, "WorldPosX", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldPosY", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldPosZ", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldVelX", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldVelY", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldVelZ", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldFwdX", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldFwdY", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldFwdZ", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldRytX", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldRytY", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "WorldRytZ", reader.ReadInt16()));
+                packets.Add(new ChannelPacket(time, vIndex, "GForceX", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "GForceY", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "GForceZ", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Yaw", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Pitch", reader.ReadSingle()));
+                packets.Add(new ChannelPacket(time, vIndex, "Roll", reader.ReadSingle()));
+            }
+
             return packets;
         }
 
