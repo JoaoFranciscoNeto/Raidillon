@@ -2,7 +2,7 @@
 {
     public class ChannelPacket
     {
-        public ChannelPacket(float timestamp, int vehicleId, string name, double value)
+        public ChannelPacket(double timestamp, int vehicleId, string name, double value)
         {
             this.Value = value;
             this.Name = name;
@@ -14,7 +14,7 @@
 
         public string Name { get;  set; }
 
-        public float Timestamp { get; set; }
+        public double Timestamp { get; set; }
 
         public int VehicleId { get; set; }
 
