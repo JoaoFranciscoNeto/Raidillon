@@ -14,7 +14,7 @@ namespace Raidillon.Client.F12019
             var timestamp = packet.m_sessionTime;
             switch (packet.m_packetId)
             {
-                case 1:
+                case 0:
                     channelPackets.AddRange(ReadMotionPacket(binaryReader, timestamp));
                     break;
 

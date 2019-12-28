@@ -34,7 +34,7 @@
                 .SelectMany(res => PacketProcessor.ProcessPacket(res.Buffer)))
                 .GroupBy(
                     p => new { p.Timestamp, p.VehicleId })
-                .SelectMany(g => g.TakeUntil(Observable.Timer(TimeSpan.FromSeconds(1))).ToList());
+                .SelectMany(g => g.TakeUntil(Observable.Timer(TimeSpan.FromMilliseconds(10))).ToList());
         }
     }
 }

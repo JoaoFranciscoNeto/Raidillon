@@ -10,32 +10,31 @@
         d:DataContext="d:DesignInstance MainWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Click="InjectStopOnClick">
-            Inject/Stop Data
-        </Button>
         <!--Here we disable tooltips and hovering to get a better performance-->
-        <lvc:CartesianChart Grid.Row="1" AnimationsSpeed="0:0:0.2" Hoverable="False" DataTooltip="{x:Null}" DisableAnimations="True">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Values="{Binding ChartValues}" 
-                                PointGeometry="{x:Null}" 
-                                LineSmoothness="1"
-                                StrokeThickness="6" 
-                                Stroke="#F34336"
-                                Fill="Transparent"/>
-            </lvc:CartesianChart.Series>
+        <lvc:CartesianChart 
+            Name="MainChart"
+            Grid.Row="0" 
+            Hoverable="False" 
+            DataTooltip="{x:Null}" 
+            DisableAnimations="True"
+            Zoom="{Binding ZoomingMode}"
+            Series="{Binding SeriesCollection}"
+            AxisY="{Binding AxisY}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis LabelFormatter="{Binding DateTimeFormatter}" 
                           MaxValue="{Binding AxisMax}" 
                           MinValue="{Binding AxisMin}"
                           Unit="{Binding AxisUnit}">
                     <lvc:Axis.Separator>
-                        <lvc:Separator Step="{Binding AxisStep}" />
+                        <lvc:Separator Step="{Binding AxisStep}" StrokeThickness=".2" />
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.Background>
+                <SolidColorBrush Color="Black"/>
+            </lvc:CartesianChart.Background>
         </lvc:CartesianChart>
     </Grid>
 </Window>

@@ -4,19 +4,19 @@ using System.Text;
 
 namespace Raidillon.Client.F12019
 {
-    class ChannelDefinitions : IChannelDefinitions
+    public static class ChannelDefinitions
     {
-        public IEnumerable<ChannelDefinition> Channels { get; } = new List<ChannelDefinition>()
+        public static IEnumerable<ChannelDefinition> Channels { get; } = new List<ChannelDefinition>()
         {
-            new ChannelDefinition("Speed", "kmh"),
-            new ChannelDefinition("Throttle", "%"),
-            new ChannelDefinition("Steer", "%"),
-            new ChannelDefinition("Brake", "%"),
-            new ChannelDefinition("Clutch", "%"),
-            new ChannelDefinition("NGear", "-"),
-            new ChannelDefinition("NEngine", "rpm"),
-            new ChannelDefinition("Drs", "%"),
-            new ChannelDefinition("TEngine", "°C"),
+            new ChannelDefinition("Speed", "kmh", 0, 400),
+            new ChannelDefinition("Throttle", "%", 0, 1),
+            new ChannelDefinition("Steer", "%", 0, 1),
+            new ChannelDefinition("Brake", "%", 0, 1),
+            new ChannelDefinition("Clutch", "%", 0, 1),
+            new ChannelDefinition("NGear", "-", 0, 8),
+            new ChannelDefinition("NEngine", "rpm", 0, 15000),
+            new ChannelDefinition("Drs", "%", 0, 100),
+            new ChannelDefinition("TEngine", "°C", 0, 200),
         };
     }
 }

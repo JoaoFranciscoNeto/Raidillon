@@ -1,13 +1,19 @@
 ﻿using LiveCharts;
 using LiveCharts.Configurations;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using LiveCharts.Wpf.Charts.Base;
 using Raidillon.Client;
+using Raidillon.Client.F12019;
 using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Linq;
+using System.Windows.Media;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Raidillon.Viewer
 {
@@ -19,7 +25,7 @@ namespace Raidillon.Viewer
 
         private double _axisMax;
         private double _axisMin;
-        private double _trend;
+        private ZoomingOptions _zoomingMode;
 
         public MainWindow()
         {
@@ -31,28 +37,77 @@ namespace Raidillon.Viewer
 
             Charting.For<ChannelPacket>(mapper);
 
-            ChartValues = new ChartValues<ChannelPacket>();
-            DateTimeFormatter = value => new DateTime((long)value).ToString("mm:ss");
+            DateTimeFormatter = value => TimeSpan.FromSeconds(value).ToString(@"mm\:ss\:fff");
 
             //AxisStep forces the distance between each separator in the X axis
-            AxisStep = TimeSpan.FromSeconds(1).Ticks;
+            AxisStep = 1;
             //AxisUnit forces lets the axis know that we are plotting seconds
             //this is not always necessary, but it can prevent wrong labeling
-            AxisUnit = TimeSpan.TicksPerSecond;
+            AxisUnit = .01;
 
-            SetAxisLimits(DateTime.Now);
+            ZoomingMode = ZoomingOptions.X;
+
+            SetAxisLimits(0);
+
+            SeriesCollection = new SeriesCollection();
+
+            var connection = new F12019Connection();
+
+            var stream = connection.StartConnection(20777);
+
+            var chartValues = new Dictionary<string, ChartValues<ChannelPacket>>();
+            int i = 0;
+            MainChart.AxisY = new AxesCollection();
+
+            foreach (var item in ChannelDefinitions.Channels)
+            {
+
+                MainChart.AxisY.Add(new Axis()
+                {
+                    MinValue = item.Range.Item1,
+                    MaxValue = item.Range.Item2,
+                    ShowLabels = false
+                });
+
+                var series = new LineSeries()
+                {
+                    PointGeometry = null,
+                    LineSmoothness = 0,
+                    Values = new ChartValues<ChannelPacket>(),
+                    Fill = Brushes.Transparent,
+                    Stroke = Brushes.Red,
+                    ScalesYAt = i++,
+                };
+                
+                chartValues[item.Name] = (ChartValues<ChannelPacket>) series.Values;
+
+                SeriesCollection.Add(series);
+            }
+
+
+            stream.Subscribe(o =>
+            {
+                foreach (var item in o.Where(p=>p.VehicleId.Equals(0)))
+                {
+                    if (chartValues.TryGetValue(item.Name, out var v))
+                    {
+                        v.Add(item);
+                        SetAxisLimits(item.Timestamp);
+                    }
+                }
+            });
 
             //The next code simulates data changes every 300 ms
 
-            IsReading = false;
 
             DataContext = this;
         }
 
-        public ChartValues<ChannelPacket> ChartValues { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
         public Func<double, string> DateTimeFormatter { get; set; }
         public double AxisStep { get; set; }
         public double AxisUnit { get; set; }
+        public CartesianChart cartesianChart { get; set; }
 
         public double AxisMax
         {
@@ -72,45 +127,33 @@ namespace Raidillon.Viewer
                 OnPropertyChanged("AxisMin");
             }
         }
-        public bool IsReading { get; set; }
 
-        private void Read()
+        private void SetAxisLimits(double now)
         {
-            var r = new Random();
-            DateTime start = DateTime.Now;
-            while (IsReading)
-            {
-                Thread.Sleep(150);
-                var now = DateTime.Now;
-
-                _trend += r.Next(-8, 10);
-
-                ChartValues.Add(new ChannelPacket(
-                    now.Ticks,
-                    0,
-                    "Speed",
-                    _trend
-                    ));
-
-                
-
-                SetAxisLimits(now);
-
-                //lets only use the last 150 values
-                if (ChartValues.Count > 150) ChartValues.RemoveAt(0);
-            }
+            AxisMax = now + 1;
+            AxisMin = now - 20;
         }
 
         private void SetAxisLimits(DateTime now)
         {
             AxisMax = now.Ticks + TimeSpan.FromSeconds(1).Ticks; // lets force the axis to be 1 second ahead
-            AxisMin = now.Ticks - TimeSpan.FromSeconds(8).Ticks; // and 8 seconds behind
+            AxisMin = now.Ticks - TimeSpan.FromSeconds(30).Ticks; // and 8 seconds behind
+        }
+
+
+        public ZoomingOptions ZoomingMode
+        {
+            get { return _zoomingMode; }
+            set
+            {
+                _zoomingMode = value;
+                OnPropertyChanged();
+            }
         }
 
         private void InjectStopOnClick(object sender, RoutedEventArgs e)
         {
-            IsReading = !IsReading;
-            if (IsReading) Task.Factory.StartNew(Read);
+
         }
 
         #region INotifyPropertyChanged implementation
