@@ -13,12 +13,18 @@
         static void Main(string[] args)
         {
             var connection = new F12019Connection();
+            connection.StartConnection(20777);
 
-            var stream = connection.StartConnection(20777);
+            var stream = connection.ChannelStream;
+
+
 
             stream.Subscribe(o =>
             {
-                
+                foreach (var item in o)
+                {
+                    Console.WriteLine(item);
+                }
             });
 
 

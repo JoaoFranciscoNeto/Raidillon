@@ -1,20 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using Raidillon.Client.DataStructure;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Raidillon.Client.F12019
 {
-    internal static class PacketProcessor
+    internal static partial class PacketProcessor
     {
-        internal static List<ChannelPacket> ProcessPacket(byte[] buffer)
+        internal static Participants ProcessParticipantPackets(byte[] buffer)
+        {
+            var binaryReader = new BinaryReader(new MemoryStream(buffer));
+            var packet = BuildPacketHeaderFromByteArray(binaryReader);
+
+            return null;
+        }
+
+        internal static List<ChannelPacket> ProcessChannelPackets(PacketHeader header, byte[] buffer)
         {
             var channelPackets = new List<ChannelPacket>();
 
             var binaryReader = new BinaryReader(new MemoryStream(buffer));
-            var packet = BuildPacketHeaderFromByteArray(binaryReader);
-            var timestamp = packet.m_sessionTime;
-            switch (packet.m_packetId)
+            //var packet = BuildPacketHeaderFromByteArray(binaryReader);
+            var timestamp = header.m_sessionTime;
+            switch (header.m_packetId)
             {
-                case 1:
+                case 0:
                     channelPackets.AddRange(ReadMotionPacket(binaryReader, timestamp));
                     break;
 
@@ -142,7 +151,7 @@ namespace Raidillon.Client.F12019
             return packets;
         }
 
-        private static PacketHeader BuildPacketHeaderFromByteArray(BinaryReader binaryReader)
+        internal static PacketHeader BuildPacketHeaderFromByteArray(BinaryReader binaryReader)
         {
             return new PacketHeader
             {
@@ -156,20 +165,6 @@ namespace Raidillon.Client.F12019
                 m_frameIdentifier = binaryReader.ReadUInt32(),
                 m_playerCarIndex = binaryReader.ReadByte(),
             };
-        }
-
-        public class PacketHeader
-        {
-            public ushort m_packetFormat { get; internal set; }          // 2019
-            public byte m_gameMajorVersion { get; internal set; }       // Game major version - "X.00"
-            public byte m_gameMinorVersion { get; internal set; }       // Game minor version - "1.XX"
-            public byte m_packetVersion { get; internal set; }          // Version of this packet type, all start from 1
-            public byte m_packetId { get; internal set; }               // Identifier for the packet type, see below
-            public ulong m_sessionUID { get; internal set; }             // Unique identifier for the session
-            public float m_sessionTime { get; internal set; }            // Session timestamp
-            public uint m_frameIdentifier { get; internal set; }         // Identifier for the frame the data was retrieved on
-            public byte m_playerCarIndex { get; internal set; }         // Index of player's car in the array
-
         }
     }
 }
