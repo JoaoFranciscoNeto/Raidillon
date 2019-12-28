@@ -39,6 +39,7 @@
                 });
 
             ChannelStream = CreateChannelStream(udpStream);
+            ParticipantStream = CreateParticipantStream(udpStream);
         }
 
         public bool EndConnection()
@@ -65,7 +66,10 @@
 
         private IObservable<Participants> CreateParticipantStream(IObservable<UdpPacket> udpStream)
         {
-            return null;
+            return udpStream
+                .Where(p=> p.header.m_packetId.Equals(4))
+                .Select(p => PacketProcessor.ProcessParticipantPackets(p.header, p.buffer))
+                .DistinctUntilChanged();
         }
     }
 }

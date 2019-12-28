@@ -7,6 +7,7 @@
     using System.Reactive;
     using System.Reactive.Linq;
     using System.Linq;
+    using Raidillon.Client.DataStructure;
 
     class Program
     {
@@ -15,6 +16,7 @@
             var connection = new F12019Connection();
             connection.StartConnection(20777);
 
+            /*
             var stream = connection.ChannelStream;
 
 
@@ -24,6 +26,20 @@
                 foreach (var item in o)
                 {
                     Console.WriteLine(item);
+                }
+            });*/
+
+
+            Participants par = null;
+
+            var stream = connection.ParticipantStream;
+            stream.Subscribe(p =>
+            {
+                par = p;
+                Console.WriteLine(p.nParticipants);
+                foreach (var item in p.participants)
+                {
+                    Console.WriteLine("\t"+item.Name);
                 }
             });
 

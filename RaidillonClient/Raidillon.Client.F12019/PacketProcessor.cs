@@ -6,12 +6,31 @@ namespace Raidillon.Client.F12019
 {
     internal static partial class PacketProcessor
     {
-        internal static Participants ProcessParticipantPackets(byte[] buffer)
+        internal static Participants ProcessParticipantPackets(PacketHeader header, byte[] buffer)
         {
             var binaryReader = new BinaryReader(new MemoryStream(buffer));
-            var packet = BuildPacketHeaderFromByteArray(binaryReader);
 
-            return null;
+            int nParticipants = binaryReader.ReadByte();
+            List<ParticipantData> pData = new List<ParticipantData>();
+            for (int i = 0; i < nParticipants; i++)
+            {
+                pData.Add(new ParticipantData()
+                {
+                    AIControlled = binaryReader.ReadByte(),
+                    DriverId = binaryReader.ReadByte(),
+                    TeamId = binaryReader.ReadByte(),
+                    RaceNumber = binaryReader.ReadByte(),
+                    Nationality = binaryReader.ReadByte(),
+                    Name = System.Text.Encoding.UTF8.GetString(binaryReader.ReadBytes(48)),
+                    TelemetryEnabled = binaryReader.ReadByte(),
+                });
+            }
+
+            return new Participants()
+            {
+                nParticipants = nParticipants,
+                participants = pData.ToArray(),
+            };
         }
 
         internal static List<ChannelPacket> ProcessChannelPackets(PacketHeader header, byte[] buffer)
