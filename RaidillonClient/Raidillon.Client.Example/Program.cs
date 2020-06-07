@@ -16,33 +16,6 @@
             var connection = new F12019Connection();
             connection.StartConnection(20777);
 
-            /*
-            var stream = connection.ChannelStream;
-
-
-
-            stream.Subscribe(o =>
-            {
-                foreach (var item in o)
-                {
-                    Console.WriteLine(item);
-                }
-            });*/
-
-
-            Participants par = null;
-
-            var stream = connection.ParticipantStream;
-            stream.Subscribe(p =>
-            {
-                par = p;
-                Console.WriteLine(p.nParticipants);
-                foreach (var item in p.participants)
-                {
-                    Console.WriteLine("\t"+item.Name);
-                }
-            });
-
 
             Console.ReadLine();
         }

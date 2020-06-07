@@ -54,7 +54,7 @@ namespace Raidillon.Client
         public bool Equals(T[] firstArray, T[] secondArray)
         {
             // if same reference or both null, then equality is true
-            if (object.ReferenceEquals(firstArray, secondArray))
+            if (ReferenceEquals(firstArray, secondArray))
             {
                 return true;
             }
@@ -66,7 +66,7 @@ namespace Raidillon.Client
                 for (int i = 0; i < firstArray.Length; i++)
                 {
                     // if any mismatch, not equal
-                    if (!object.Equals(firstArray[i], secondArray[i]))
+                    if (!Equals(firstArray[i], secondArray[i]))
                     {
                         return false;
                     }
